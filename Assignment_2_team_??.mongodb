@@ -1,0 +1,54 @@
+/* Problem 1 Solution */
+/*  1. Show the data of the customer whose name is "John Vega". */
+
+    db.customers.find({ name: "John Vega" })
+
+/* Problem 2 Solution */
+/*  Show the data of all customers whose address contains "CT". */
+
+    db.customers.find({address:{ $regex: "CT" }})
+
+/* Problem 3 Solution */
+/* Show how mamy customers there are whose address contains "CT". */
+
+    db.customers.countDocuments({address:{ $regex: "CT" }})
+
+/* Problem 4 Solution */
+/* Show how many customers have residence at zip code 38560. */
+
+    db.customers.countDocuments({address:{ $regex: "38560" }})
+
+/* Problem 5 Solution */
+/* Show the data of customers whose name begins with D and ends with s. */
+
+    db.customers.find({ name: { $regex: "^D.*s$"} })
+
+/* Problem 6 Solution */
+/* Show the count for the customers in no. 5. */
+
+    db.customers.countDocuments({ name: { $regex: "^D.*s$"} })
+
+
+/* Problem 7 Solution */
+/* Show how many customers have exactly 4 accounts. */
+
+    db.customers.countDocuments({ accounts: { $size: 4 } })
+
+/* Problem 8 Solution */
+/* Show how many customers have more than 5 accounts. */
+
+    db.customers.countDocuments({
+        $expr: {
+            $gt: [ { $size: "$accounts" }, 5  ]
+        }
+    })
+
+/* Problem 9 Solution */
+/* Show how many customers whose name begins with L and who have more than 5 accounts. */
+
+    db.customers.countDocuments({
+        $and: [
+            { name: { $regex: "^L"} },
+            { $expr: { $gt: [ { $size: "$accounts" }, 5  ] } }
+        ]
+    })
